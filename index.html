@@ -13,25 +13,26 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: 
-                linear-gradient(135deg, #667eea 0%, #764ba2 100%),
-                url('cityscape.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
+            background-image: url('./cityscape.jpg'), linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-size: cover, cover;
+            background-position: center, center;
+            background-attachment: fixed, fixed;
+            background-repeat: no-repeat, no-repeat;
             min-height: 100vh;
             color: #333;
             overflow-x: hidden;
-            position: relative;
-        }
-
-        body::before {
-            display: none;
         }
 
         body::after {
-            display: none;
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
+            pointer-events: none;
+            z-index: -1;
         }
 
         .container {
@@ -97,8 +98,8 @@
         }
 
         .card {
-            background: rgba(255,255,255,0.12);
-            backdrop-filter: blur(15px);
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(20px);
             border-radius: 24px;
             padding: 2rem;
             border: 1px solid rgba(255,255,255,0.25);
@@ -114,7 +115,7 @@
         .card:hover {
             transform: translateY(-8px);
             box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-            background: rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.18);
         }
 
         .card-icon {
@@ -133,7 +134,7 @@
         }
 
         .card p {
-            color: rgba(255,255,255,0.85);
+            color: rgba(255,255,255,0.9);
             line-height: 1.7;
             margin-bottom: 1.5rem;
             font-size: 1.05rem;
