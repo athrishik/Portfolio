@@ -13,17 +13,27 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: url('./cityscape.jpg'), linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            background-size: cover, cover;
-            background-position: center, center;
-            background-attachment: fixed, fixed;
-            background-repeat: no-repeat, no-repeat;
             min-height: 100vh;
             color: #333;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('./cityscape.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            z-index: -2;
             transform: translateZ(0);
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
+            will-change: transform;
         }
 
         body::after {
@@ -31,8 +41,8 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
             pointer-events: none;
             z-index: -1;
@@ -352,18 +362,35 @@
 
         /* Desktop-only performance optimizations */
         @media (min-width: 769px) {
-            body {
-                background-attachment: fixed, fixed;
+            body::before {
+                background-attachment: fixed;
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
             }
             
             .floating-shapes {
                 display: block;
             }
+            
+            /* Smooth scrolling optimization */
+            html {
+                scroll-behavior: smooth;
+            }
         }
 
         @media (max-width: 768px) {
-            body {
-                background-attachment: scroll, scroll;
+            body::before {
+                background-attachment: scroll;
+                background-size: cover;
+                min-height: 100vh;
+                height: 100%;
+                position: absolute;
+            }
+            
+            body::after {
+                position: absolute;
+                min-height: 100vh;
+                height: 100%;
             }
             
             .floating-shapes {
@@ -662,42 +689,30 @@
     </div>
 
     <script>
-        // High-performance optimized JavaScript
+        // High-performance optimized JavaScript with smooth scrolling
         document.addEventListener('DOMContentLoaded', function() {
             // Detect if user is on a high-performance device
             const isHighPerformance = window.devicePixelRatio <= 2 && 
                                     navigator.hardwareConcurrency > 2 && 
                                     window.innerWidth > 768;
             
-            // Use requestAnimationFrame with frame rate limiting for better performance
+            // Smooth scrolling optimization
+            let rafId = null;
             let ticking = false;
-            let lastScrollTime = 0;
-            const SCROLL_THROTTLE = 16; // ~60fps
             
             // Intersection Observer for card animations (more efficient than scroll listeners)
             const observerOptions = {
-                threshold: 0.15,
-                rootMargin: '0px 0px -50px 0px'
+                threshold: 0.1,
+                rootMargin: '0px 0px -30px 0px'
             };
 
             const observer = new IntersectionObserver((entries) => {
-                // Batch DOM updates
-                const updates = [];
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        updates.push(() => {
-                            entry.target.style.opacity = '1';
-                            entry.target.style.transform = 'translate3d(0, 0, 0)';
-                        });
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translate3d(0, 0, 0)';
                     }
                 });
-                
-                // Execute all updates in a single frame
-                if (updates.length > 0) {
-                    requestAnimationFrame(() => {
-                        updates.forEach(update => update());
-                    });
-                }
             }, observerOptions);
 
             // Observe cards with performance consideration
@@ -706,37 +721,38 @@
                 observer.observe(card);
             });
 
-            // Optimized parallax effect (only on high-performance devices and desktop)
+            // Optimized parallax effect with reduced frequency
             if (isHighPerformance) {
-                function updateParallax(currentTime) {
-                    if (currentTime - lastScrollTime < SCROLL_THROTTLE) {
-                        if (!ticking) {
-                            requestAnimationFrame(updateParallax);
-                            ticking = true;
-                        }
-                        return;
+                let lastKnownScrollPosition = 0;
+                let isScrolling = false;
+                
+                function updateParallax() {
+                    if (isScrolling) {
+                        const scrolled = lastKnownScrollPosition;
+                        const shapes = document.querySelectorAll('.shape');
+                        
+                        // Use transform3d for hardware acceleration with reduced intensity
+                        shapes.forEach((shape, index) => {
+                            const speed = (index + 1) * 0.15; // Further reduced for smoothness
+                            shape.style.transform = `translate3d(0, ${scrolled * speed}px, 0)`;
+                        });
+                        
+                        isScrolling = false;
                     }
                     
-                    lastScrollTime = currentTime;
-                    const scrolled = window.pageYOffset;
-                    const shapes = document.querySelectorAll('.shape');
-                    
-                    // Use transform3d for hardware acceleration
-                    shapes.forEach((shape, index) => {
-                        const speed = (index + 1) * 0.25; // Reduced for better performance
-                        shape.style.transform = `translate3d(0, ${scrolled * speed}px, 0)`;
-                    });
-                    
-                    ticking = false;
+                    rafId = requestAnimationFrame(updateParallax);
                 }
 
-                // Passive scroll listener for better performance
+                // Throttled scroll listener
                 window.addEventListener('scroll', () => {
-                    if (!ticking) {
-                        requestAnimationFrame(updateParallax);
-                        ticking = true;
+                    lastKnownScrollPosition = window.pageYOffset;
+                    if (!isScrolling) {
+                        isScrolling = true;
                     }
                 }, { passive: true });
+                
+                // Start the animation loop
+                updateParallax();
             }
 
             // Optimized click effects with event delegation
@@ -756,18 +772,26 @@
             // Preload critical resources on idle
             if ('requestIdleCallback' in window) {
                 requestIdleCallback(() => {
-                    // Preload any additional resources during idle time
-                    const link = document.createElement('link');
-                    link.rel = 'prefetch';
-                    link.href = './cityscape.jpg';
-                    document.head.appendChild(link);
+                    // Preload cityscape image with higher quality
+                    const img = new Image();
+                    img.src = './cityscape.jpg';
+                    img.onload = () => {
+                        console.log('Background image preloaded successfully');
+                    };
                 });
             }
             
-            // Performance monitoring (development only)
+            // Performance monitoring
             if (window.performance && window.performance.mark) {
                 window.performance.mark('portfolio-interactive');
             }
+            
+            // Cleanup on page unload
+            window.addEventListener('beforeunload', () => {
+                if (rafId) {
+                    cancelAnimationFrame(rafId);
+                }
+            });
         });
     </script>
 </body>
