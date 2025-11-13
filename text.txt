@@ -1,0 +1,52 @@
+Hrishik Kunduru
+US Citizen
+|| Hrishik.kunduru@gmail.com linkedin.com/in/hrishikkunduru github.com/athrishik ||
+Summary
+Results-driven graduate student with strong technical foundation and proven ability to coordinate cross-functional IT
+initiatives. Experienced in managing technical projects, documenting processes, and translating complex infrastructure
+requirements into clear deliverables. Skilled in Python, SQL, and cloud platforms with demonstrated ability to manage
+multiple priorities and drive projects to completion.
+Education
+Boston University Master of Science in Applied Data Analytics – GPA: 3.85/4.0 Manipal Institute of Technology Bachelor of Science in Aeronautical Engineering Technical Skills
+Sept 2024 – Expected May 2026
+Boston, MA
+July 2019 – June 2023
+Manipal, India
+Languages/Analytics: Python, SQL, Pandas, NumPy, R, Scikit-learn, PyTorch, TensorFlow, Matplotlib, Seaborn
+Infrastructure & Tools: AWS, Azure Cloud, Snowflake, Apache Spark, Tableau, Power BI, PowerAutomate
+Experience
+RAS Legal Group, PLLC AI and Automation Engineer June 2025 – Present
+Boca Raton, FL
+• Coordinated large-scale IT infrastructure migration project involving 20,000+ legal documents across multiple systems,
+managing timelines, stakeholder communication, and technical requirements.
+• Participated in business meetings and drafted Business Requirements Documents (BRDs) for AI automation initiatives,
+translating stakeholder needs into technical specifications and project deliverables.
+• Sole developer of DocXIdentify, an enterprise-grade automation tool for large-scale legal database migration,
+demonstrating end-to-end project ownership from requirements gathering to deployment.
+• Developed comprehensive Python-based software suite (DocXScan, DocXReplace, DocXIdentify) for infrastructure
+automation, eliminating 160+ hours of manual work and accelerating platform transition.
+• Translated technical infrastructure requirements into actionable deliverables, partnering with IT teams to understand
+system dependencies and document integration processes using SQL and CSM platforms.
+RAS Legal Group, PLLC DevOps Analyst - Intern May 2025 – June 2025
+Boca Raton, FL
+• Facilitated cross-functional collaboration between Operations, Security, and Legal teams to resolve technical issues,
+processing 20+ support tickets monthly with clear documentation and status updates.
+• Optimized internal ticket resolution workflows by diagnosing and resolving automated document generation issues using
+SQL and CSM integration.
+Apollo Diagnostics July 2023 – Dec 2023
+Junior Data Analyst Hyderabad, India
+• Managed inventory optimization initiative by coordinating with procurement and operations teams, tracking progress
+against KPIs, and presenting executive updates on stock management strategies.
+• Built and maintained 15 dynamic dashboards for real-time infrastructure monitoring, enabling data-driven
+decision-making that reduced out-of-stock incidents by 20%.
+• Documented analytics processes and created standardized reporting templates for stakeholder updates.
+ProTech – Progressive Technologies Data Analyst - Intern May 2023 – Nov 2023
+Hyderabad, India
+• Coordinated with cross-functional teams across 20+ client accounts in energy industries, managing project timelines,
+action items, and deliverable tracking for energy consumption analysis initiatives.
+• Facilitated meetings with technical and business stakeholders, capturing requirements and translating them into
+analytical reports that identified 16% surplus energy consumption.
+• Conducted research on emerging energy management tools and best practices to inform client recommendations and cost
+reduction strategies.
+Hobbies and Achievements
+National Basketball Player (India), Pro E-Sports/Content Creation, Charity Fundraising (OIS CARNIVAL)
